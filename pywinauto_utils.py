@@ -2,10 +2,24 @@ from pywinauto import application, findwindows
 from pywinauto.timings import wait_until_passes
 
 def expand_archive_menu(window):
-  wait_until_passes(10, 0.5, lambda: window.descendants(title='Aplicativo', control_type="MenuBar")[0].children()[0].expand())
+  wait_until_passes(
+    10, 
+    0.5, 
+    lambda: window.descendants(
+      title='Aplicativo', 
+      control_type="MenuBar"
+      )[0].children()[0].expand()
+    )
 
 def click_archive_option(window, option):
-  wait_until_passes(10, 0.5, lambda: window.children(title="Arquivo", control_type="Menu")[0].children(title=option)[0].click_input())
+  wait_until_passes(
+    10, 
+    0.5, 
+    lambda: window.children(
+      title="Arquivo", 
+      control_type="Menu"
+      )[0].children(title=option)[0].click_input()
+    )
 
 def start_application(*, exec_path, app_title, app_class):
   app = application.Application(backend='uia').start(exec_path)
