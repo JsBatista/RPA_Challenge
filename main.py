@@ -1,51 +1,42 @@
-from pydoc import classname
-from pywinauto import application, findwindows
+from pywinauto import findwindows
 from pywinauto.keyboard import send_keys
-from pywinauto.timings import wait_until_passes
+from pywinauto_utils import expand_archive_menu, click_archive_option, start_application, find_window
 import time
+import constants
 
-app = application.Application(backend='uia')
-app.start("C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe")
+DUMMY_PATHS = [r"C:\Users\Batista\Desktop\Algoritmos Aproximativos - Relatório Apresentação.pdf", r"C:\Users\Batista\Desktop\Declaracao Nada Consta.pdf", r"C:\Users\Batista\Desktop\requerimento-de-outorga-de-grau-1a-via.pdf"]
+DUMMY_SAVES = [r"C:\Users\Batista\Desktop\down\SuperArquivo1.pdf", r"C:\Users\Batista\Desktop\down\SuperArquivo2.pdf", r"C:\Users\Batista\Desktop\down\SuperArquivo3.pdf"]
 
-window_handler = wait_until_passes(10, 0.5, lambda: findwindows.find_window(title="Adobe Acrobat Reader DC (64-bit)", class_name="AcrobatSDIWindow"))
+app, window = start_application(exec_path=constants.ACROBAT_APP_PATH, app_title=constants.ACROBAT_APP_TITLE, app_class=constants.ACROBAT_APP_CLASS)
 
-window = app.window_(handle=window_handler)
+for i in range(0,3):
+  expand_archive_menu(window)
+  click_archive_option(window, option=constants.OPEN_FILE_OPTION)
 
-# Expande o menu de abrir
-window.descendants(control_type="MenuBar")[1].children()[0].expand()
+  open_file_window = find_window(app=app, window_title=constants.OPEN_FILE_WINDOW)
 
-window.children(title="Arquivo", control_type="Menu")[0].children(title="Abrir... Ctrl+O")[0].click_input()
+  open_file_window.children(title=constants.FILE_NAME_FIELD, class_name="ComboBox")[0].select(DUMMY_PATHS[i])
+  open_file_window.children(title=constants.OPEN_FILE_BUTTON, class_name="Button")[0].click_input()
 
-popup_handler = wait_until_passes(10, 0.5, lambda: findwindows.find_window(title="Abrir"))
-popup = app.window_(handle=popup_handler)
+  #time.sleep(1)
 
-# Aqui eu especifico a path que eu preciso
-popup.children(title="Nome:", class_name='ComboBox')[0].select(r"C:\Users\Batista\Desktop\Algoritmos Aproximativos - Relatório Apresentação.pdf")
-popup.children(title="Abrir", class_name="Button")[0].click_input()
+  expand_archive_menu(window)
+  click_archive_option(window, option=constants.SAVE_AS_OPTION)
 
-#time.sleep(1)
+  time.sleep(3)
+  send_keys("{ENTER}")
 
-window.descendants(control_type="MenuBar")[1].children()[0].expand()
-window.children(title="Arquivo", control_type="Menu")[0].children(title="Salvar como... Shift+Ctrl+S")[0].click_input()
+  save_as_window = find_window(app=app, window_title=constants.SAVE_AS_WINDOW)
 
-time.sleep(3)
-send_keys("{ENTER}")
+  save_as_window.children(control_type="Pane")[0].children(title=constants.FILE_NAME_FIELD, control_type="ComboBox")[0].type_keys(DUMMY_SAVES[i])
+  save_as_window.children(title=constants.SAVE_FILE_BUTTON, control_type="Button")[0].click_input()
 
-popup_handler2 = wait_until_passes(10, 0.5, lambda: findwindows.find_window(title="Salvar como"))
-popup2 = app.window_(handle=popup_handler2)
+  try:
+    confirmation_window = find_window(app=app, window_title=constants.CONFIRM_SAVE_WINDOW)
+    confirmation_window.children(title=constants.YES_BUTTON, control_type="Button")[0].click_input()
 
+  except (findwindows.WindowNotFoundError):
+    pass
 
-popup2.children(control_type='Pane')[0].children(title='Nome:', control_type='ComboBox')[0].type_keys(r"C:\Users\Batista\Desktop\down\Apresentação2.pdf")
-popup2.children(title='Salvar', control_type='Button')[0].click_input()
-
-try:
-  popup_handler3 = findwindows.find_window(title="Confirmar Salvar como")
-  popup3 = app.window_(handle=popup_handler3)
-  popup3.children(title='Sim', control_type='Button')[0].click_input()
-
-
-except (findwindows.WindowNotFoundError):
-  pass
-
-window.descendants(control_type="MenuBar")[1].children()[0].expand()
-window.children(title='Arquivo')[0].children(title='Sair do aplicativo Ctrl+Q')[0].click_input()
+expand_archive_menu(window)
+click_archive_option(window, option=constants.EXIT_APP_OPTION)
