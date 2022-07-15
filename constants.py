@@ -2,6 +2,8 @@
 ACROBAT_APP_PATH = "C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe"
 ACROBAT_APP_TITLE = "Adobe Acrobat Reader DC (64-bit)"
 ACROBAT_APP_CLASS = "AcrobatSDIWindow"
+ARCHIVE = 'Arquivo'
+APPLICATION = 'Aplicativo'
 
 # Localization Constants
 # Window Title Constants
