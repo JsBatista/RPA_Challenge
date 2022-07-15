@@ -40,3 +40,12 @@ You can also insert the directory path directly as a command line argument:
 You can also specify if you want to delete the original files by adding a 'Y' after the directory path.
 
     python main.py "C:\Users\YOUR_USER\..." Y
+    
+## The RPA Process Flow
+
+For this challenge, was created a diagram that show exaclty what is happening inside the RPA, with all possible branches and exits for the script.
+
+The diagram is available both in English and Portuguese-BR:
+
+* [RPA Flow Diagram (English)] (https://drive.google.com/file/d/1LNJwvPVYGafs4S6x7kFgtBjG1kadcpnf/view?usp=sharing)
+* [RPA Flow Diagram (Portuguese-BR)] (https://drive.google.com/file/d/1o7HKqocmTIz_DPU-EmvcGrV-mnSr5VCp/view?usp=sharing)
