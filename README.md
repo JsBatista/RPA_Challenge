@@ -29,17 +29,17 @@ After installing Python, use Pip to install the following libraries:
 
 After all the libraries are installed successfully, head to the main project directory and run:
 
-    python main.py
+    python src/main.py
 
 Make sure that you use the right python executable. For instance, you may have to change ***python*** to ***python3***.
 
 You can also insert the directory path directly as a command line argument:
 
-    python main.py "C:\Users\YOUR_USER\..."
+    python src/main.py "C:\Users\YOUR_USER\..."
 
 You can also specify if you want to delete the original files by adding a 'Y' after the directory path.
 
-    python main.py "C:\Users\YOUR_USER\..." Y
+    python src/main.py "C:\Users\YOUR_USER\..." Y
     
 ## The RPA Process Flow
 
