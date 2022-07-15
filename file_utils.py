@@ -1,6 +1,7 @@
+import constants
 from pathlib import Path, PurePath
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, exists
 import re
 
 def is_valid_pdf_file(path, file):
@@ -19,3 +20,7 @@ def get_article_pdf_files(path):
   print(path)
   print(listdir(path))
   return [join(path, f) for f in listdir(path) if is_valid_pdf_file(path, f)]
+
+def gen_report_path(path):
+  pure_file_path = PurePath(path).parts
+  return Path(*pure_file_path[:-1], "{}.csv".format(constants.REPORT_FILE_NAME))

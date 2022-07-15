@@ -23,3 +23,9 @@ YES_BUTTON = "Sim"
 OPEN_FILE_OPTION = "Abrir... Ctrl+O"
 SAVE_AS_OPTION = "Salvar como... Shift+Ctrl+S"
 EXIT_APP_OPTION = "Sair do aplicativo Ctrl+Q"
+
+# Report Constants
+REPORT_FILE_NAME = "Relatório de execução"
+DOCUMENT_NAME_COLUMN = "Nome do documento"
+DOCUMENT_STATUS_COLUMN = "Status"
+FINISHED_STATUS_VALUE = "documento alterado"

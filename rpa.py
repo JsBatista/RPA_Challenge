@@ -1,11 +1,17 @@
 import constants
+import pandas as pd
 from pywinauto import findwindows
 from pywinauto.keyboard import send_keys
-from pywinauto_utils import expand_archive_menu, click_archive_option, find_window_no_wait, start_application, find_window
+from pywinauto_utils import expand_archive_menu, click_archive_option, find_window_no_wait, find_window
 import time
-from file_utils import gen_modified_path, get_article_pdf_files
+from file_utils import gen_modified_path, gen_report_path
+from os.path import exists
+from pathlib import PurePath
 
 def automate_file_renaming(*, files, app, window):
+  if len(files) > 0:
+    create_csv_empty_report(files[0])
+  
   for file_path in files:
     expand_archive_menu(window)
     click_archive_option(window, option=constants.OPEN_FILE_OPTION)
@@ -60,6 +66,30 @@ def automate_file_renaming(*, files, app, window):
     except (findwindows.WindowNotFoundError):
       pass
 
+    add_report_entry(file_path)
+
 def close_application(window):
   expand_archive_menu(window)
   click_archive_option(window, option=constants.EXIT_APP_OPTION)
+
+def create_csv_empty_report(path):
+  report_path = gen_report_path(path)
+  if not exists(report_path):
+    data = {
+      constants.DOCUMENT_NAME_COLUMN: [], 
+      constants.DOCUMENT_STATUS_COLUMN: []
+      }
+    pd.DataFrame(data).to_csv(report_path, index=False)
+
+def add_report_entry(file_path):
+  report_path = gen_report_path(file_path)
+  data = {
+    constants.DOCUMENT_NAME_COLUMN: [PurePath(file_path).parts[-1]], 
+    constants.DOCUMENT_STATUS_COLUMN: [constants.FINISHED_STATUS_VALUE]
+  }
+  pd.DataFrame(data).to_csv(
+    report_path, 
+    mode="a", 
+    index=False, 
+    header=False
+    )
