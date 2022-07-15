@@ -47,5 +47,5 @@ For this challenge, was created a diagram that show exaclty what is happening in
 
 The diagram is available both in English and Portuguese-BR:
 
-* [RPA Flow Diagram (English)] (https://drive.google.com/file/d/1LNJwvPVYGafs4S6x7kFgtBjG1kadcpnf/view?usp=sharing)
-* [RPA Flow Diagram (Portuguese-BR)] (https://drive.google.com/file/d/1o7HKqocmTIz_DPU-EmvcGrV-mnSr5VCp/view?usp=sharing)
+* [RPA Flow Diagram (English)](https://drive.google.com/file/d/1LNJwvPVYGafs4S6x7kFgtBjG1kadcpnf/view?usp=sharing)
+* [RPA Flow Diagram (Portuguese-BR)](https://drive.google.com/file/d/1o7HKqocmTIz_DPU-EmvcGrV-mnSr5VCp/view?usp=sharing)
