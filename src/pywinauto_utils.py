@@ -3,8 +3,9 @@ from pywinauto.timings import wait_until_passes
 
 import constants
 
+
 def expand_archive_menu(window):
-  """
+    """
     Expands the Archive menu for the Adobe Acrobat application.
 
     This function tries to expand the archive menu for the Adobe Acrobat
@@ -15,17 +16,18 @@ def expand_archive_menu(window):
     window : 
         Current pywinauto window where the application is located.
     """
-  wait_until_passes(
-    10, 
-    0.5, 
-    lambda: window.descendants(
-      title=constants.APPLICATION, 
-      control_type="MenuBar"
-      )[0].children()[0].expand()
+    wait_until_passes(
+        10,
+        0.5,
+        lambda: window.descendants(
+            title=constants.APPLICATION,
+            control_type="MenuBar"
+        )[0].children()[0].expand()
     )
 
+
 def click_archive_option(window, option):
-  """
+    """
     Clicks on a option inside the Archive menu for the Adobe Acrobat app.
 
     This function selects an option located inside the Archive option for the
@@ -40,17 +42,18 @@ def click_archive_option(window, option):
     option : String
         Option that will be chosen. Check constants.py
     """
-  wait_until_passes(
-    10, 
-    0.5, 
-    lambda: window.children(
-      title=constants.ARCHIVE, 
-      control_type="Menu"
-      )[0].children(title=option)[0].click_input()
+    wait_until_passes(
+        10,
+        0.5,
+        lambda: window.children(
+            title=constants.ARCHIVE,
+            control_type="Menu"
+        )[0].children(title=option)[0].click_input()
     )
 
+
 def start_application(*, exec_path, app_title, app_class):
-  """
+    """
     Starts an appliocation and returns the pywinauto objects related to it.
 
     This function receives the path for the .exe file for the program that will
@@ -74,16 +77,17 @@ def start_application(*, exec_path, app_title, app_class):
     Tuple< Application, Window >
         The Application and Window objects for pywinauto.
     """
-  app = application.Application(backend='uia').start(exec_path)
-  window = find_window(
-    app=app, 
-    window_title=app_title, 
-    window_class=app_class
+    app = application.Application(backend='uia').start(exec_path)
+    window = find_window(
+        app=app,
+        window_title=app_title,
+        window_class=app_class
     )
-  return [app, window]
+    return [app, window]
 
-def find_window(*, app, window_title, window_class = None):
-  """
+
+def find_window(*, app, window_title, window_class=None):
+    """
     Finds a window for pywinauto, with specified attributes, returning it.
 
     This function tries to find a window with an specified title while an
@@ -107,18 +111,19 @@ def find_window(*, app, window_title, window_class = None):
     Window
         The Window object for pywinauto, representind the found window.
     """
-  window_handler = wait_until_passes(
-    10, 
-    0.5, 
-    lambda: findwindows.find_window(
-      title=window_title, 
-      class_name=window_class
-      )
+    window_handler = wait_until_passes(
+        10,
+        0.5,
+        lambda: findwindows.find_window(
+            title=window_title,
+            class_name=window_class
+        )
     )
-  return app.window_(handle=window_handler)
+    return app.window_(handle=window_handler)
 
-def find_window_no_wait(*, app, window_title, window_class = None):
-  """
+
+def find_window_no_wait(*, app, window_title, window_class=None):
+    """
     Try to find a window for pywinauto, with specified attributes, once.
 
     This function tries to find a window with an specified title while an
@@ -141,8 +146,8 @@ def find_window_no_wait(*, app, window_title, window_class = None):
     Window
         The Window object for pywinauto, representind the found window.
     """
-  window_handler = findwindows.find_window(
-    title=window_title, 
-    class_name=window_class
+    window_handler = findwindows.find_window(
+        title=window_title,
+        class_name=window_class
     )
-  return app.window_(handle=window_handler)
+    return app.window_(handle=window_handler)

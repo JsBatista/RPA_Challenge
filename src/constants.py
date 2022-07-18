@@ -33,8 +33,8 @@ SAVE_AS_OPTION = "Salvar como... Shift+Ctrl+S"
 EXIT_APP_OPTION = "Sair do aplicativo Ctrl+Q"
 
 # File Name Constants
-PAGE_PREFIX = 'Página'
-PAGE_SUFFIX = 'Modificado'
+PAGE_PREFIX = "Página"
+PAGE_SUFFIX = "Modificado"
 
 # Report Constants
 REPORT_FILE_NAME = "Relatório de execução"
